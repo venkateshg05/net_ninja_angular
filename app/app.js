@@ -1,23 +1,79 @@
-var myNinjaApp = angular.module('myNinjaApp',[]);
+var myNinjaApp = angular.module('myNinjaApp',['ngRoute', 'ngAnimate']);
 
-myNinjaApp.controller('NinjaController', ['$scope', function($scope){
+myNinjaApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $locationProvider){
 
-  $scope.ninjas = [
-    {
-      name:"Joshi",
-      belt:"Green",
-      rate:300
+  $locationProvider.html5Mode(true);
+
+  $routeProvider
+    .when('/home', {
+      templateUrl: 'views/home.html',
+      controller: 'NinjaController'
+    })
+    .when('/contact', {
+      templateUrl: 'views/contact.html',
+      controller: 'ContactController'
+    })
+    .when('/contact-success', {
+      templateUrl: 'views/contact-success.html',
+      controller: 'ContactController'
+    })
+    .when('/ninjas', {
+      templateUrl: 'views/directory.html',
+      controller: 'NinjaController'
+    }).otherwise({
+      redirectTo: '/home'
+    });
+
+}]);
+
+myNinjaApp.directive('randomNinja',[function(){
+  return{
+    restrict: 'E',
+    scope : {
+      ninjas: '=',
+      title: '='
     },
-    {
-      name:'Yada',
-      belt:'Red',
-      rate:30
-    },
-    {
-      name:'Neo',
-      belt:'Black',
-      rate:3000
+    templateUrl: 'views/random.html',
+    transclude: true,
+    replace: true,
+    controller: function($scope){
+      $scope.random = Math.floor(Math.random() * 4);
     }
-  ];
+  };
+}]);
 
+myNinjaApp.controller('NinjaController', ['$scope', '$http', function($scope, $http){
+
+  $scope.removeNinja = function (ninja){
+    var rmNinja = $scope.ninjas.indexOf(ninja);
+    $scope.ninjas.splice(rmNinja, 1);
+  };
+
+  $scope.addNinja = function(){
+    $scope.ninjas.push({
+      name:$scope.newninja.name,
+      belt:$scope.newninja.belt,
+      rate:parseInt($scope.newninja.rate),
+      available:true
+    });
+
+    $scope.newninja.name = "";
+    $scope.newninja.belt = "";
+    $scope.newninja.rate = "";
+  };
+
+  $scope.removeAll = function(){
+    $scope.ninjas = [];
+  };
+
+  $http.get('data/ninjas.json').then(function(response){
+    $scope.ninjas = response.data;
+  });
+
+}]);
+
+myNinjaApp.controller('ContactController',['$scope', '$location', function($scope, $location){
+  $scope.sendMessage = function(){
+    $location.path('/contact-success');
+  };
 }]);

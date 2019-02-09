@@ -93,7 +93,7 @@ main{
   font-size: 22px;
 }
 
-.content input{
+.content input, textarea{
   width: 90%;
   padding: 10px 5%;
   border-radius: 10px;
@@ -117,4 +117,66 @@ main{
   color: crimson;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.randomNinja{
+  text-align:center;
+}
+
+/* ANIMATIONS */
+
+main.ng-enter{
+  transition: 0.45s linear all;
+  opacity: 0.5;
+}
+
+main.ng-enter.ng-enter-active{
+  opacity: 1;
+}
+
+#ninja-list li.ng-enter {
+  transition: 0.25s linear all;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+#ninja-list li.ng-enter.ng-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#ninja-list li.ng-leave {
+  transition: 0.25s linear all;
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+#ninja-list li.ng-leave.ng-leave-active {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+#ninja-list li.ng-leave-stagger{
+  transition-delay: 0.05s;
+  transition-duration: 0;
+}
+
+/* Form validation */
+.alert{
+  text-align: left;
+  color: red;
+  display: block;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 1.5px solid red;
+}
+
+input.ng-valid.ng-touched, textarea.ng-valid.ng-touched {
+  border: 1.5px solid green;
+}
+
+input[disabled="disabled"]{
+  opacity: 0.5;
+  cursor: not-allowed !important;
 }

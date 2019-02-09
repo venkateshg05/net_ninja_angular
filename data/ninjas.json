@@ -1,0 +1,25 @@
+[{
+	"name": "Joshi",
+	"belt": "Green",
+	"rate": 300,
+	"available": true,
+	"thumb": "content/img/IMG_2469.JPG"
+}, {
+	"name": "Yada",
+	"belt": "Red",
+	"rate": 30,
+	"available": true,
+	"thumb": "content/img/Screen shot 1.png"
+}, {
+	"name": "Neo",
+	"belt": "Black",
+	"rate": 3000,
+	"available": true,
+	"thumb": "content/img/Screenshot 2.png"
+}, {
+	"name": "TMNT",
+	"belt": "Orange",
+	"rate": 1000,
+	"available": true,
+	"thumb": "content/img/Snapseed.jpeg"
+}]
